@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Inventory Management</title>
+</head>
+<body>
+    <h1>Inventory Management System</h1>
+    {% if error %}
+        <p style="color: red;">{{ error }}</p>
+    {% endif %}
+
+    <h2>Add Product</h2>
+    <form method="POST">
+        <input type="text" name="product_id" placeholder="Product ID" required>
+        <input type="text" name="product_name" placeholder="Product Name" required>
+        <input type="text" name="category" placeholder="Category" required>
+        <input type="number" name="price" placeholder="Price" required>
+        <input type="number" name="stock" placeholder="Stock" required>
+        <button type="submit" name="add">Add</button>
+    </form>
+
+    <h2>Update Product</h2>
+    <form method="POST">
+        <input type="text" name="product_id_update" placeholder="Product ID" required>
+        <input type="text" name="product_name_update" placeholder="New Product Name">
+        <input type="text" name="category_update" placeholder="New Category">
+        <input type="number" name="price_update" placeholder="New Price">
+        <input type="number" name="stock_update" placeholder="New Stock">
+        <button type="submit" name="update">Update</button>
+    </form>
+
+    <h2>Record Sale</h2>
+    <form method="POST">
+        <input type="text" name="product_id_sale" placeholder="Product ID" required>
+        <input type="number" name="quantity" placeholder="Quantity" required>
+        <button type="submit" name="sale">Record Sale</button>
+    </form>
+
+    <h2>Recommend Restocks</h2>
+    <form method="POST">
+        <input type="number" name="threshold" placeholder="Stock Threshold" required>
+        <button type="submit" name="restock">Recommend</button>
+    </form>
+
+    <h2>Inventory</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Product ID</th>
+                <th>Product Name</th>
+                <th>Category</th>
+                <th>Price</th>
+                <th>Stock</th>
+                <th>Total Sales</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in inventory %}
+                <tr>
+                    <td>{{ item['Product ID'] }}</td>
+                    <td>{{ item['Product Name'] }}</td>
+                    <td>{{ item['Category'] }}</td>
+                    <td>{{ item['Price'] }}</td>
+                    <td>{{ item['Stock'] }}</td>
+                    <td>{{ item['Total Sales'] }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% if restock_products %}
+    <h2>Restock Recommendations</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Product ID</th>
+                <th>Product Name</th>
+                <th>Category</th>
+                <th>Price</th>
+                <th>Stock</th>
+                <th>Total Sales</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in restock_products %}
+                <tr>
+                    <td>{{ item['Product ID'] }}</td>
+                    <td>{{ item['Product Name'] }}</td>
+                    <td>{{ item['Category'] }}</td>
+                    <td>{{ item['Price'] }}</td>
+                    <td>{{ item['Stock'] }}</td>
+                    <td>{{ item['Total Sales'] }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+</body>
+</html>
